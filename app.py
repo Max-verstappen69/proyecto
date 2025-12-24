@@ -53,35 +53,34 @@ if scatter_button:
 
 # Gráfico de barras apiladas
 if bar_button:
-    st.write('Tipos de vehículo por fabricante')
+    st.write('Distribución de vehículos por tipo y condición')
 
-    # Crear tabla de conteo
     grouped = (
         car_data
-        .groupby(['manufacturer', 'type'])
+        .groupby(['type', 'condition'])
         .size()
         .reset_index(name='count')
     )
 
     fig = go.Figure()
 
-    # Crear una barra por cada tipo de vehículo
-    for vehicle_type in grouped['type'].unique():
-        data_type = grouped[grouped['type'] == vehicle_type]
+    for condition in grouped['condition'].unique():
+        data_cond = grouped[grouped['condition'] == condition]
+
         fig.add_trace(
             go.Bar(
-                x=data_type['manufacturer'],
-                y=data_type['count'],
-                name=vehicle_type
+                x=data_cond['type'],   # SUV, pickup, sedan, etc.
+                y=data_cond['count'],
+                name=condition
             )
         )
 
     fig.update_layout(
         barmode='stack',
-        title='Tipos de vehículo por fabricante',
-        xaxis_title='Fabricante',
+        title='Tipos de vehículo por condición',
+        xaxis_title='Tipo de vehículo',
         yaxis_title='Cantidad',
-        legend_title='Tipo de vehículo'
+        legend_title='Condición'
     )
 
     st.plotly_chart(fig, use_container_width=True)
