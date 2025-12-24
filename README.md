@@ -1,1 +1,2 @@
-# proyecto
+# proyecto 
+el proyect oconsiste en el uso de streamlist para la creacion de una app sobre automoviles con datos de precios, traccion, cilindro, etc. esta pagina web permite al usuario visualizar la imformacion de un csv mediante graficos dinamicos.
